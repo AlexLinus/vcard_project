@@ -1,0 +1,151 @@
+{% load static %}
+{% load solo_tags %}
+{% get_solo 'vcard.SiteConfiguration' as site_config %}
+<!doctype html>
+<html lang="en">
+<head>
+
+<!-- Simple Page Needs
+================================================== -->
+<title>{% block seo_title %}{% endblock %}</title>
+<meta charset="UTF-8">
+<meta name="description" content="{% block seo_description %}{% endblock %}">
+<meta name="keywords" content="{% block seo_keywords %}{% endblock %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon
+================================================== -->
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/reset.css' %}"/>
+<link rel="stylesheet" href="{% static 'cubeportfolio/css/cubeportfolio.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/colors/yellow.css' %}" id="color"/>
+
+
+<!-- Google Web fonts
+================================================== -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic-ext" rel="stylesheet">
+
+<!-- Font Icons
+================================================== -->
+<link rel="stylesheet" href="{% static 'icon-fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'icon-fonts/web-design/flaticon.css' %}" />
+
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+</head>
+<body>
+ <!-- Preloading -->
+<div id="preloader">
+    <div class="spinner">
+    </div>
+</div>
+
+<!-- Wrapper -->
+<div class="wrapper top_60 container">
+<div class="row">
+
+<!-- Profile Section
+================================================== -->
+<div class="col-lg-3 col-md-4">
+    <div class="profile">
+        <div class="profile-name">
+            <span class="name">Alex Verchenko {alexlinus} </span><br>
+            <span class="job">Web-developer</span>
+        </div>
+        <figure class="profile-image">
+            <img src="{{ site_config.avatar.url }}" alt="">
+        </figure>
+        <ul class="profile-information">
+            <li></li>
+            <li><p><span>Name:</span> Alex Verchenko</p></li>
+            <li><p><span>Email:</span> {{ site_config.email }}</p></li>
+            <li><p><span>Skype:</span> henryrooney85</p></li>
+        </ul>
+        <div class="col-md-12">
+            <button class="site-btn icon" onclick="window.open('{{ site_config.my_cv.url }}')">Download Cv <i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Page Tab Container Div -->
+<div id="ajax-tab-container" class="col-lg-9 col-md-8 tab-container">
+
+<!-- Header
+================================================== -->
+<div class="row">
+    <header class="col-md-12">
+        <nav>
+            <div class="row">
+                <!-- navigation bar -->
+                <div class="col-md-8 col-sm-8 col-xs-4">
+                    <ul class="tabs">
+                        <li class="tab">
+                            <a class="home-btn" href="{% url 'home_url' %}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="tab"><a href="{% url 'portfolio_url' %}">ПОРТФОЛИО</a></li>
+                        <li class="tab"><a href="{% url 'blog_url' %}">БЛОГ</a></li>
+                        <li class="tab"><a href="{% url 'contact_url' %}">КОНТАКТЫ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-8 dynamic">
+                    <a href="mailto:hi@tavonline.net" class="pull-right site-btn icon hidden-xs">Hire Me <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                    <div class="hamburger pull-right hidden-lg hidden-md"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                    <div class="hidden-md social-icons pull-right">
+                        <a class="fb" href="index.html#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a class="tw" href="index.html#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a class="ins" href="index.html#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a class="dr" href="index.html#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="col-md-12">
+        <div id="content" class="panel-container">
+{% block content %}
+{% endblock %}
+       </div><!-- Content - End -->
+     </div> <!-- col-md-12 end -->
+</div><!-- row end -->
+<!-- Footer
+================================================== -->
+<footer>
+    <div class="footer col-md-12 top_30 bottom_30">
+        <div class="name col-md-4 hidden-md hidden-sm hidden-xs">Alex Linus</div>
+        <div class="copyright col-lg-8 col-md-12">© 2019</div>
+    </div>
+</footer>
+
+</div> <!-- Tab Container - End -->
+</div> <!-- Row - End -->
+</div> <!-- Wrapper - End -->
+
+<!-- Javascripts
+================================================== -->
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'cubeportfolio/js/jquery.cubeportfolio.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.easytabs.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<!-- for color alternatives -->
+ <script src="{% static 'js/comments.js' %}"></script>
+<script src="{% static 'js/jquery.cookie-1.4.1.min.js' %}"></script>
+
+
+
+</body>
+</html>

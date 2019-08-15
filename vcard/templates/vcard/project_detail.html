@@ -1,0 +1,38 @@
+{% block seo_title %}{% endblock %}
+{% block seo_description %}{% endblock %}
+{% block seo_keywords %}{% endblock %}
+{% load static %}
+ <html lang="en">
+
+<body>
+		<div class="col-md-8 col-md-offset-2 portfolio-content text-center">
+			<h1 class="blog-title">{{ project.title }}</h1>
+			<figure class="top_45 bottom_45">
+				<img src="{{ project.preview.url }}" alt="">
+			</figure>
+			<div class="section-title bottom_30"><span></span><h2>О проекте</h2></div>
+			<p>{{ project.project_description|safe }}
+			</p>
+			<br>
+			<p><span>Использованные технологии:</span> {% if project.technologies %} {{ project.technologies|safe }}{% endif %}</p>
+			<br>
+            {% if project.project_url %}
+			    <button class="site-btn top_15 bottom_30" onclick="window.open('{{ project.project_url }}')">Перейти к проекту</button>
+            {% endif %}
+            {% if project.comp_view %}
+			<figure class="top_45 bottom_45">
+				<img src="{{ project.comp_view.url }}" alt="">
+			</figure>
+            {% endif %}
+			<div class="social-share col-md-12 bottom_60 top_15">
+				<ul>
+					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+		</div>
+
+</body>
+</html>

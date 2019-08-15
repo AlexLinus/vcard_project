@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block seo_title %}{% endblock %}
+{% block seo_description %} {% endblock %}
+{% block seo_keywords %}{% endblock %}
+
+{% block content %}
+    <!-- Blog Page
+    ================================================== -->
+    <div id="blog">
+        <div class="row">
+            <section class="blog col-md-12 bottom_30">
+                <div class="col-md-12 content-header">
+                    <div class="section-title top_30 bottom_15"><span></span><h2>Статьи блога</h2></div>
+                </div>
+                <div id="grid-blog" class="row">
+                    <!-- a blog -->
+                    {% for post in posts %}
+                    <div class="cbp-item">
+                        <a href="{{ post.get_absolute_url }}" class="blog-box">
+                            <div class="blog-img">
+                                {% if post.preview_image %}
+                                    <img src="{{ post.preview_image.url }}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="blog-box-info">
+                                <span class="category">{{ post.post_category.category_title }}</span>
+                                <h2 class="title">{{ post.post_title }}</h2>
+                                <p class="little-text">{{ post.post_body|truncatechars_html:100|safe }}</p>
+                                <span class="date">{{ post.pub_date|date:"d M Y" }}</span>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block seo_title%}{% endblock %}
+{% block seo_description %}{% endblock %}
+{% block seo_keywords %}{% endblock %}
+
+{% block content %}
+                <!-- Portfolio Page
+            ================================================== -->
+            <div id="portfolio" class="row bottom_45">
+                <section class="col-md-12">
+                    <div class="col-md-12 content-header bottom_15">
+                        <div class="section-title top_30 bottom_30"><span></span><h2>Портфолио</h2></div>
+                    </div>
+                    <div id="grid-container" class="top_60">
+                        {% for project in portfolio_items %}
+                        <!-- a work -->
+                        <div class="cbp-item webdesign">
+                            <a href="/portfolio/{{ project.slug }}/" class="cbp-singlePage">
+                                <figure>
+                                    <div class="icon">
+                                        <i class="fa fa-clone" aria-hidden="true"></i>
+                                    </div>
+                                    <img src="{{ project.preview.url }}" alt="">
+                                    <figcaption>
+                                        <span class="title">{{ project.title }}</span><br/>
+                                        <span class="info">{{ project.project_description|truncatechars_html:100|safe}}.</span>
+                                    </figcaption>
+                                </figure>
+                            </a>
+                        </div>
+                        <!-- a work -->
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+{% endblock %}
