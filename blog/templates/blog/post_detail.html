@@ -33,21 +33,6 @@
                     <a href="blog-1.html#">creative,</a>
                     <a href="blog-1.html#">portfolio</a> -->
                 </div>
-                <!-- Related Post -->
-                <div class="post-list">
-                    <div class="section-title bottom_15 top_60"><span></span><h2>Похожие статьи</h2></div>
-                    <ul>
-                        {% for related_post in related_posts %}
-                        <!-- a post -->
-                        <li>
-                            <a href="blog-1.html#">
-                                <div class="info">{{ related_post.post_category.category_title }} <span>{{ related_post.pub_date|date:"d M Y" }}</span></div>
-                                <p class="little-text">{{ related_post.post_title }}</p>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
             </div> <!-- post end -->
             <!--Sidebar-->
             <div class="col-md-4 blog-sidebar">
@@ -85,9 +70,6 @@
                         {% for comment in post.post_comments.all reversed%}
                             <li>
                             <div class="row">
-                                <div class="col-md-2 col-sm-2 col-xs-3 person-img">
-                                    <img src="{% static '/images/person.jpg' %}" alt="">
-                                </div>
                                 <div class="col-md-10 col-sm-10 col-xs-9 comment-content">
                                     <div class="name">{{ comment.author_name }}</div>
                                     <span class="date">{{ comment.pub_date }}</span>
@@ -120,7 +102,7 @@
                                 {{ comment_form.comment_body }}
                             </div>
                              <div class="col-md-12 top_15 bottom_30">
-                                <button class="site-btn" type="submit">Оставить комментарий</button>
+                                <button class="site-btn"  id="add-comment" type="submit">Оставить комментарий</button>
                             </div>
                         </div>
                     </form>

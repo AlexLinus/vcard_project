@@ -1068,6 +1068,18 @@ ul.timeline{
     padding-right: 30px;
 }
 
+#blog-post .post .post-content p {
+    margin-bottom: 20px;
+}
+
+#blog-post .post .post-content pre code {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 20px;
+    background: #F0F0F0;
+    padding: 5px;
+}
+
 /* Sidebar */
 
 #blog-post .blog-sidebar{
@@ -1158,7 +1170,7 @@ ul.timeline{
 #blog-post .post-comment ul li{
     list-style: none;
     border-bottom: solid 1px #efefef;
-    padding: 30px 0;
+    padding: 15px 0;
 }
 
 #blog-post .post-comment ul li:last-child{

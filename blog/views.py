@@ -39,6 +39,5 @@ def add_comment(request, post_slug):
         new_comment = full_form.save(commit=False)
         new_comment.post = post
         new_comment.save()
-
-    return redirect(post)
+    return redirect(post.get_absolute_url)
 
