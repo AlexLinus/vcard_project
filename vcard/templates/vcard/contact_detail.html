@@ -11,16 +11,20 @@
                     <!-- Contact Form -->
                     <section class="contact-form col-md-6 padding_30 padbot_45">
                         <div class="section-title top_15 bottom_30"><span></span><h2>Написать мне</h2></div>
-                        <form class="site-form">
+                        <form class="site-form" action="{% url 'send_message_url' %}" method="POST">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input class="site-input" placeholder="Name">
+                                    {{ form.your_name.error_messages }}
+                                    {{ form.your_name }}
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="site-input" placeholder="E-mail">
+                                    {{ form.your_email.error_messages }}
+                                    {{ form.your_email }}
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="site-area" placeholder="Message"></textarea>
+                                    {{ form.message.error_messages }}
+                                    {{ form.message }}
                                 </div>
                                 <div class="col-md-12 top_15 bottom_30">
                                     <button class="site-btn" type="submit">Отправить</button>

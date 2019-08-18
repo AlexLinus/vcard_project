@@ -21,17 +21,21 @@
                     {{ post.post_body|safe }}
                 </div>
                 <div class="tags top_30">
-                    <span>Tags:</span>
-                    <a href="blog-1.html#">web,</a>
+                    {% if post.seo_keywords %}
+                        <span>Tags:</span>
+                        {{ post.seo_keywords }}
+                    {% endif %}
+
+                    <!--- <a href="blog-1.html#">web,</a>
                     <a href="blog-1.html#">interface,</a>
                     <a href="blog-1.html#">design,</a>
                     <a href="blog-1.html#">photoshop,</a>
                     <a href="blog-1.html#">creative,</a>
-                    <a href="blog-1.html#">portfolio</a>
+                    <a href="blog-1.html#">portfolio</a> -->
                 </div>
                 <!-- Related Post -->
                 <div class="post-list">
-                    <div class="section-title bottom_15 top_60"><span></span><h2>Related Posts</h2></div>
+                    <div class="section-title bottom_15 top_60"><span></span><h2>Похожие статьи</h2></div>
                     <ul>
                         {% for related_post in related_posts %}
                         <!-- a post -->
@@ -44,45 +48,56 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <!-- Post Comments -->
+            </div> <!-- post end -->
+            <!--Sidebar-->
+            <div class="col-md-4 blog-sidebar">
+                <!-- Category List -->
+                <div class="category">
+                    <div class="section-title bottom_15 top_15"><span></span><h3>Категории</h3></div>
+                    <ul class="category-list">
+                        {% for category in categories %}
+                            <li><a href="{{ category.get_absolute_url }}">{{ category.category_title }}</a><span>{{category.category_posts.count}}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Popular Post -->
+                <div class="post-list">
+                    <div class="section-title bottom_15 top_60"><span></span><h3>Похожие статьи</h3></div>
+                    <ul>
+                        <!-- a post -->
+                        {% for related_post in related_posts %}
+                        <li>
+                            <a href="{{ related_post.get_absolute_url }}">
+                                <div class="info">{{ related_post.post_category.category_title }} <span>{{ related_post.pub_date|date:"d M Y" }}</span></div>
+                                <p class="little-text">{{related_post.post_title}}</p>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        <div class="col-md-12">
+                            <!-- Post Comments -->
                 <div class="post-comment">
-                    <div class="section-title bottom_30 top_60"><span></span><h2>Post Comments</h2></div>
+                    <div class="section-title bottom_30 top_60"><span></span><h2>Комментарии</h2></div>
                     <ul>
                         <!-- a comment -->
                         {% for comment in post.post_comments.all reversed%}
-                            {% if not comment.parrent_comment %}
-                                <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2 col-xs-3 person-img">
-                                        <img src="{% static '/images/person.jpg' %}" alt="">
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-9 comment-content">
-                                        <div class="name">{{ comment.author_name }}</div>
-                                        <span class="date">{{ comment.pub_date }}</span>
-                                        <p>{{ comment.comment_body}}</p>
-                                        <a href="blog-1.html#"><i class="fa fa-reply" aria-hidden="true"></i>Ответить</a>
-                                    </div>
+                            <li>
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 col-xs-3 person-img">
+                                    <img src="{% static '/images/person.jpg' %}" alt="">
                                 </div>
-                                </li>
-                            {% endif %}
-                            {% if comment.children_comments %}
-                                {% for child_comment in comment.children_comments.all %}
-                                    <!-- a comment -->
-                                        <li>
-                                            <div class="row reply">
-                                                <div class="col-md-2 col-sm-2 col-xs-3 person-img">
-                                                    <img src="{% static '/images/person.jpg' %}" alt="">
-                                                </div>
-                                                <div class="col-md-10 col-sm-10 col-xs-9 comment-content">
-                                                    <div class="name">{{ child_comment.author_name }}</div>
-                                                    <span class="date">{{ child_comment.pub_date }}</span>
-                                                    <p> {{ child_comment.parrent_comment.author_name }}, {{ child_comment.comment_body|safe}}</p>
-                                                    <a href="blog-1.html#"><i class="fa fa-reply" aria-hidden="true"></i>Ответить</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                {% endfor %}
-                            {% endif %}
+                                <div class="col-md-10 col-sm-10 col-xs-9 comment-content">
+                                    <div class="name">{{ comment.author_name }}</div>
+                                    <span class="date">{{ comment.pub_date }}</span>
+                                    <div id="comment-{{ comment.id }}">
+                                        <p>{{ comment.comment_body|safe}}</p>
+                                    </div>
+                                    <button class="get_quote" data-comment-id="comment-{{ comment.id }}"><i class="fa fa-reply" aria-hidden="true"></i>Цитировать</button>
+                                </div>
+                            </div>
+                            </li>
                         {% endfor %}
 
                     </ul>
@@ -105,45 +120,12 @@
                                 {{ comment_form.comment_body }}
                             </div>
                              <div class="col-md-12 top_15 bottom_30">
-                                <button class="site-btn" type="submit">Submit</button>
+                                <button class="site-btn" type="submit">Оставить комментарий</button>
                             </div>
                         </div>
                     </form>
                 </div>
-            </div> <!-- post end -->
-            <!--Sidebar-->
-            <div class="col-md-4 blog-sidebar">
-                <!-- Category List -->
-                <div class="category">
-                    <div class="section-title bottom_15 top_15"><span></span><h3>Categories</h3></div>
-                    <ul class="category-list">
-                        {% for category in categories %}
-                            <li><a href="{{ category.get_absolute_url }}">{{ category.category_title }}</a><span>{{category.category_posts.count}}</span></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!-- Popular Post -->
-                <div class="post-list">
-                    <div class="section-title bottom_15 top_60"><span></span><h3>Related Posts</h3></div>
-                    <ul>
-                        <!-- a post -->
-                        {% for related_post in related_posts %}
-                        <li>
-                            <a href="{{ related_post.get_absolute_url }}">
-                                <div class="info">{{ related_post.post_category.category_title }} <span>{{ related_post.pub_date|date:"d M Y" }}</span></div>
-                                <p class="little-text">{{related_post.post_title}}</p>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!-- Advertisement -->
-                <div class="advertisement">
-                    <div class="section-title bottom_30 top_60"><span></span><h3>Advertisement</h3></div>
-
-                    <img src="../images/image.jpg" alt="">
-                </div>
-            </div>
+        </div>
         </div>
     </div>
 {% endblock %}

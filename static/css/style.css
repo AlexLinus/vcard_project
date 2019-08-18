@@ -168,9 +168,7 @@ p{
 }
 
 blockquote {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 30px;
+
 }
 
 h1{
@@ -1192,14 +1190,33 @@ ul.timeline{
     padding-top: 2px;
 }
 
-#blog-post .post-comment ul li .comment-content a{
+#blog-post .post-comment ul li .comment-content .get_quote {
+    background: none;
+    border: 0px;
+    box-shadow: none;
+    color: #ffb100;
+}
+
+#blog-post .post-comment ul li .comment-content .get_quote:hover {
+    color: #989898;
+}
+
+#blog-post .post-comment ul li .comment-content button {
     font-size: 12px;
     padding-top: 10px;    
     display: block;
 }
 
-#blog-post .post-comment ul li .comment-content a i{
+#blog-post .post-comment ul li .comment-content button i{
     margin-right: 5px;
+}
+
+
+.comment-content blockquote {
+    margin: 5px 0 5px 10px;
+    padding: 5px;
+    background: #efefef;
+    border-left: 2px solid #ffb100;
 }
 
 #blog-post .post-comment .reply{

@@ -6,6 +6,10 @@ from autoslug import AutoSlugField
 from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.html import strip_tags
+import collections
+
+from django.utils.safestring import mark_safe
+
 
 class Posts(models.Model):
     class Meta:
@@ -29,19 +33,34 @@ class Posts(models.Model):
     def __str__(self):
         return self.post_title
 
+    @property
+    def generate_keywords(self):
+        if not self.seo_keywords:
+            text_count = collections.Counter(mark_safe(self.post_body).split())
+            seo_words = []
+            for word in text_count.most_common(12):
+                if len(word[0]) > 5:
+                    #убираем все символы, крому буквы
+                    seo_words.append(''.join(l for l in word[0] if l.isalpha() or l.isdigit()))
+            return ','.join(seo_words)
+
+    @property
     def get_absolute_url(self):
         return reverse('post_detail_url', kwargs={'post_slug': self.slug})
 
 
-def post_seo_title_description_generator(sender, instance, *args, **kwargs):
+def post_seo_title_description_keys_generator(sender, instance, *args, **kwargs):
     if instance.post_title and not instance.seo_title:
         instance.seo_title = instance.post_title
 
     if instance.post_body and not instance.seo_description:
         instance.seo_description = strip_tags(instance.post_body)[:170]
 
+    if not instance.seo_keywords:
+        instance.seo_keywords = instance.generate_keywords
 
-pre_save.connect(post_seo_title_description_generator, sender=Posts)
+
+pre_save.connect(post_seo_title_description_keys_generator, sender=Posts)
 
 
 class Category(models.Model):
@@ -84,7 +103,6 @@ class Comments(models.Model):
     author_name = models.CharField(max_length=60, verbose_name='Автор комментария', blank=False, null=False)
     author_email = models.EmailField(verbose_name='E-mail автора комментария', blank=False, null=False)
     comment_body = models.TextField(verbose_name='Текст комментария', max_length=250)
-    parrent_comment = models.ForeignKey('self', blank=True, null=True, verbose_name='Родительский комментарий', related_name='children_comments', on_delete=models.CASCADE)
     post = models.ForeignKey('Posts', blank=False, null=False, verbose_name='Статья', related_name='post_comments', on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
 
