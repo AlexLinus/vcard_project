@@ -63,7 +63,7 @@
             <span class="job">Web-developer</span>
         </div>
         <figure class="profile-image">
-            <img src="{{ site_config.avatar.url }}" alt="">
+            <img src="{% if site_config.avatar %}{{ site_config.avatar.url }}{% endif %}" alt="">
         </figure>
         <ul class="profile-information">
             <li></li>
@@ -72,7 +72,7 @@
             <li><p><span>Skype:</span> henryrooney85</p></li>
         </ul>
         <div class="col-md-12">
-            <button class="site-btn icon" onclick="window.open('{{ site_config.my_cv.url }}')">Download Cv <i class="fa fa-download" aria-hidden="true"></i></button>
+            <button class="site-btn icon" onclick="{% if site_config.my_cv %}window.open('{{ site_config.my_cv.url }}'){% endif %}">Download Cv <i class="fa fa-download" aria-hidden="true"></i></button>
         </div>
     </div>
 </div>
@@ -98,7 +98,7 @@
                     </ul>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-8 dynamic">
-                    <a href="mailto:hi@tavonline.net" class="pull-right site-btn icon hidden-xs">Hire Me <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                    <a href="mailto:alexlinus93@yandex.com" class="pull-right site-btn icon hidden-xs">Нанять меня <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
                     <div class="hamburger pull-right hidden-lg hidden-md"><i class="fa fa-bars" aria-hidden="true"></i></div>
                     <div class="hidden-md social-icons pull-right">
                         <a class="fb" href="index.html#"><i class="fa fa-facebook" aria-hidden="true"></i></a>

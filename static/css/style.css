@@ -588,6 +588,9 @@ header nav .menuout{
 } 
 
 /*------------------------ 4 Home Section ------------------------*/
+#home .about-me p {
+    margin-bottom: 10px;
+}
 
 #content{
     min-height: 500px;

@@ -97,11 +97,17 @@
                                 {{ comment_form.author_email.error_messages }}
                                 {{ comment_form.author_email }}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 {{ comment_form.comment_body.error_messages }}
                                 {{ comment_form.comment_body }}
                             </div>
+                            <div class="col-12">
+                                <p>Введите код с картинки:</p>
+                                {{ comment_form.captcha.error_messages }}
+                                {{ comment_form.captcha }}
+                            </div>
                              <div class="col-md-12 top_15 bottom_30">
+
                                 <button class="site-btn"  id="add-comment" type="submit">Оставить комментарий</button>
                             </div>
                         </div>
