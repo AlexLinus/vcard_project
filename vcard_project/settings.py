@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vcard_db',
-        'USER': 'vcard_user',
-        'PASSWORD': 'vcard_password',
+        'USER': 'alex',
+        'PASSWORD' : 'sasha1493',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -160,5 +160,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kelevra1493@gmail.com'
-EMAIL_HOST_PASSWORD = 'NONE'
+EMAIL_HOST_USER = 'user_emai'
+EMAIL_HOST_PASSWORD = 'password'
+
+#УДобно для продакшна. Если есть файл settings_prod то он перезаписывает настройки текущего settings.py, если нет. То остается таким же.
+#try:
+#    from .settings_prod import *
+#except:
+#    pass

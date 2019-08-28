@@ -26,11 +26,12 @@ def send_message(request):
         full_form = ContactForm(request.POST)
         if full_form.is_valid():
             subject = f'Письмо с сайта vcard, от { full_form.cleaned_data["your_name"]}'
-            email_from = full_form.cleaned_data['your_email']
+            email_from = settings.EMAIL_HOST_USER
             message = full_form.cleaned_data['message']
-            recipient_list = ['kelevra141993@gmail.com']
+            recipient_list = ['kelevra141993@gmail.com',]
             try:
                 send_mail(subject, message, email_from, recipient_list)
+                print('Сработало TRY')
             except Exception as e:
                 print(f'Ошибка: {e}')
         return redirect('contact_url')

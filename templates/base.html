@@ -15,7 +15,7 @@
 
 <!-- Favicon
 ================================================== -->
-<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="{{ site_config.favicon.url }}" rel="shortcut icon" type="image/x-icon" />
 
 <!-- CSS
 ================================================== -->
@@ -144,8 +144,7 @@
 <!-- for color alternatives -->
  <script src="{% static 'js/comments.js' %}"></script>
 <script src="{% static 'js/jquery.cookie-1.4.1.min.js' %}"></script>
-
-
+<script src="{% static 'js/check_captcha.js' %}"></script>
 
 </body>
 </html>

@@ -1,6 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Posts, Category, Comments
 from .forms import CommentForm
+
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
+from django.http import HttpResponse
+import json
+
 # Create your views here.
 
 def blog_detail(request):
@@ -35,9 +41,27 @@ def category_detail(request, category_slug):
 def add_comment(request, post_slug):
     post = get_object_or_404(Posts, slug=post_slug)
     full_form = CommentForm(request.POST)
-    if full_form.is_valid():
-        new_comment = full_form.save(commit=False)
-        new_comment.post = post
-        new_comment.save()
-    return redirect(post.get_absolute_url)
+    if request.is_ajax():
+        if full_form.is_valid():
+            new_comment = full_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            to_json_response = dict()
+            to_json_response['status'] = 1
+
+            to_json_response['new_cptch_key'] = CaptchaStore.generate_key()
+            to_json_response['new_cptch_image'] = captcha_image_url(to_json_response['new_cptch_key'])
+            to_json_response['new_comment_author_name'] = new_comment.author_name
+            to_json_response['new_comment_pub_date'] = str(new_comment.pub_date)
+            to_json_response['new_comment_body'] = new_comment.comment_body
+            to_json_response['new_comment_id'] = new_comment.id
+
+        else:
+            to_json_response = dict()
+            to_json_response['status'] = 0
+            to_json_response['form_errors'] = full_form.errors
+
+            to_json_response['new_cptch_key'] = CaptchaStore.generate_key()
+            to_json_response['new_cptch_image'] = captcha_image_url(to_json_response['new_cptch_key'])
+    return HttpResponse(json.dumps(to_json_response), content_type='application/json')
 

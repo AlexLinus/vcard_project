@@ -1906,8 +1906,17 @@ footer .footer .copyright a:hover{
 
 }
 
+.form_errors {
+    width: 100%;
+    color: red;
+    font-weight: bold;
+}
 
-
+.form_success {
+    width: 100%;
+    color: green;
+    font-weight: bold;
+}
 
 
 
