@@ -11,7 +11,7 @@ import json
 
 def blog_detail(request):
     posts = Posts.objects.filter(is_active=True)[:5]
-    return render(request, 'blog/blog.html', context={
+    return render(request, 'app/blog.html', context={
         'posts': posts,
     })
 
@@ -25,7 +25,8 @@ def post_detail(request, post_slug):
     categories = Category.objects.filter(is_active=True)
     related_posts = Posts.objects.filter(is_active=True).exclude(id=post.id)[:3]
     comment_form = CommentForm()
-    return render(request, 'blog/post_detail.html', context={
+
+    return render(request, 'app/post_detail.html', context={
         'post': post,
         'categories': categories,
         'related_posts': related_posts,
@@ -34,9 +35,10 @@ def post_detail(request, post_slug):
 
 def category_detail(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
-    return render(request, 'blog/category_detail.html', context={
+    return render(request, 'app/category_detail.html', context={
         'category': category,
     })
+
 
 def add_comment(request, post_slug):
     post = get_object_or_404(Posts, slug=post_slug)

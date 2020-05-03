@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vcard.apps.VcardConfig',
-    'solo.apps.SoloAppConfig',
     'ckeditor',
+    'seo',
     'blog',
     'captcha',
 ]
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'vcard.context_processors.global_settings_context',
             ],
         },
     },
@@ -78,17 +80,6 @@ WSGI_APPLICATION = 'vcard_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vcard_db',
-        'USER': 'alex',
-        'PASSWORD' : 'sasha1493',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
 
 
 # Password validation
@@ -113,9 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
@@ -128,10 +119,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
-STATICFILES_DIRS = [  #По умолчанию django ищет папки статик во всех приложения. Мы же указываем StaticDirs, чтобы все статические файлы собирались в одной папке, в корне сайта.
-    os.path.join(BASE_DIR, 'static'), #Base_DIR мы взяли базовую директорию, чтобы ссылки были относительными. Если у нас папка еще на уровень вложена, то тогда пишем типа ещеоднапапка/static
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'templates', 'assets'),
+)
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -157,14 +155,10 @@ CKEDITOR_CONFIGS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'user_emai'
-EMAIL_HOST_PASSWORD = 'password'
 
-#УДобно для продакшна. Если есть файл settings_prod то он перезаписывает настройки текущего settings.py, если нет. То остается таким же.
-#try:
-#    from .settings_prod import *
-#except:
-#    pass
+JET_SIDE_MENU_COMPACT = True
+
+try:
+   from .settings_local import *
+except ImportError:
+   pass

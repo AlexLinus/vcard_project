@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block seo_title %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.main_seo_title }}{% endif %}{% endblock %}
+{% block seo_description %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.main_seo_description }}{% endif %}{% endblock %}
+{% block seo_keywords %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.main_seo_keywords }}{% endif %}{% endblock %}
+
+{% block content %}
+            <!-- Home Page
+            ================================================== -->
+            <div id="home">
+                {% if SITE_SETTINGS.about %}
+                <!-- Text Section -->
+                <div class="row">
+                    <section class="about-me line col-md-12 padding_30 padbot_45">
+                    <div class="section-title"><span></span><h2>Обо мне</h2></div>
+                    <p class="top_30">{{ SITE_SETTINGS.about|safe }}</p>
+                    </section>
+                </div>
+                {% endif %}
+                <!-- My Services Section -->
+                <div class="row">
+                    <section class="services line graybg col-md-12 padding_50 padbot_50">
+                    <div class="section-title bottom_45"><span></span><h2>Мои услуги</h2></div>
+                    <div class="row">
+                        <!-- a service -->
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service">
+                                <div class="icon">
+                                    <i class="flaticon-html"></i>
+                                </div>
+                                <span class="title">Web-разработка</span>
+                                <p class="little-text">Разработка web-сайтов, скриптов и микросервисов.</p>
+                            </div>
+                        </div>
+                        <!-- a service -->
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service">
+                                <div class="icon">
+                                    <i class="flaticon-attach"></i>
+                                </div>
+                                <span class="title">Верстка</span>
+                                <p class="little-text">Верстка макетов web-сайтов.</p>
+                            </div>
+                        </div>
+                        <!-- a service -->
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service">
+                                <div class="icon">
+                                    <i class="flaticon-vector"></i>
+                                </div>
+                                <span class="title">Digital Marketing</span>
+                                <p class="little-text">Создание рекламных кампаний Yandex Direct, Adwords, Target.</p>
+                            </div>
+                        </div>
+                        <!-- a service -->
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="service">
+                                <div class="icon">
+                                    <i class="flaticon-schedule"></i>
+                                </div>
+                                <span class="title">Оптимизация</span>
+                                <p class="little-text">Оптимизация рекламных кампаний, отдела продаж.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </div>
+                <!-- Skills Section -->
+            {% if skills %}
+                <div class="row">
+                    <section class="design-skills col-12 padding_60 padbot_50">
+                        <div class="section-title bottom_45"><span></span><h2>Навыки</h2></div>
+                        <ul class="skill-list">
+                            <div class="row">
+                                {% for skill in skills %}
+                                    <div class="col-md-6">
+                                        <li>
+                                            <h3>{{ skill.title }}</h3>
+                                            <div class="progress">
+                                                <div class="percentage" style="width:{{ skill.percent }}%;"></div>
+                                            </div>
+                                        </li>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </ul>
+                    </section>
+                </div>
+            {% endif %}
+            </div>
+{% endblock %}

@@ -19,9 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('', include('vcard.urls')),
     path('blog/', include('blog.urls')),
-    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    path(r'^captcha/', include('captcha.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('captcha/', include('captcha.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

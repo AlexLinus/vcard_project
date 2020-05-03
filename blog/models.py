@@ -10,8 +10,11 @@ import collections
 
 from django.utils.safestring import mark_safe
 
+from seo.mixins import SeoAbstractModel
 
-class Posts(models.Model):
+
+class Posts(SeoAbstractModel):
+    """" Model for blog posts """
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
@@ -21,10 +24,8 @@ class Posts(models.Model):
     post_body = RichTextUploadingField(verbose_name='Текст статьи')
     slug = AutoSlugField(populate_from='post_title', unique_with=['id', 'pub_date__day'])
     post_category = models.ForeignKey('Category', related_name='category_posts', on_delete=models.CASCADE)
-    seo_title = models.CharField(max_length=180, blank=True, null=True, verbose_name='SEO заголовок')
-    seo_description = models.TextField(blank=True, null=True, verbose_name='SEO описание')
-    seo_keywords = models.CharField(max_length=180, blank=True, null=True, verbose_name='SEO ключевые слова')
-    preview_image = models.ImageField(upload_to='uploads/blog_previews/', default=None, blank=True, null=True, verbose_name='Превью статьи')
+    preview_image = models.ImageField(upload_to='uploads/blog_previews/', default=None, blank=True, null=True,
+                                      verbose_name='Превью статьи')
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
     pub_date = models.DateTimeField(auto_now=True, verbose_name='Дата публикации')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -35,12 +36,13 @@ class Posts(models.Model):
 
     @property
     def generate_keywords(self):
+        """ Property for generating seo keywords """
         if not self.seo_keywords:
             text_count = collections.Counter(mark_safe(self.post_body).split())
             seo_words = []
             for word in text_count.most_common(12):
                 if len(word[0]) > 5:
-                    #убираем все символы, крому буквы
+                    # убираем все символы, крому буквы
                     seo_words.append(''.join(l for l in word[0] if l.isalpha() or l.isdigit()))
             return ','.join(seo_words)
 
@@ -63,17 +65,17 @@ def post_seo_title_description_keys_generator(sender, instance, *args, **kwargs)
 pre_save.connect(post_seo_title_description_keys_generator, sender=Posts)
 
 
-class Category(models.Model):
+class Category(SeoAbstractModel):
+    """ Model for blog categories """
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
         ordering = ['-created_date']
 
     category_title = models.CharField(max_length=130, blank=False, null=False, verbose_name='Заголовок категории')
-    category_description = models.TextField(blank=True, null=True, verbose_name='Описание категории', help_text='Если понадобиться вывести текст в категории для SEO')
+    category_description = models.TextField(blank=True, null=True, verbose_name='Описание категории',
+                                            help_text='Если понадобиться вывести текст в категории для SEO')
     slug = AutoSlugField(populate_from='category_title', unique_with=['id', 'created_date__day'])
-    seo_title = models.CharField(max_length=180, blank=True, null=True, verbose_name='SEO заголовок')
-    seo_description = models.TextField(blank=True, null=True, verbose_name='SEO описание')
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
@@ -92,9 +94,12 @@ def category_seo_title_description_generator(sender, instance, *args, **kwargs):
     if instance.category_description and not instance.seo_description:
         instance.seo_description = strip_tags(instance.category_description)[:170]
 
+
 pre_save.connect(category_seo_title_description_generator, sender=Category)
 
+
 class Comments(models.Model):
+    """ Model for Comments to blog posts"""
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
@@ -103,7 +108,8 @@ class Comments(models.Model):
     author_name = models.CharField(max_length=60, verbose_name='Автор комментария', blank=False, null=False)
     author_email = models.EmailField(verbose_name='E-mail автора комментария', blank=False, null=False)
     comment_body = models.TextField(verbose_name='Текст комментария', max_length=250)
-    post = models.ForeignKey('Posts', blank=False, null=False, verbose_name='Статья', related_name='post_comments', on_delete=models.CASCADE)
+    post = models.ForeignKey('Posts', blank=False, null=False, verbose_name='Статья', related_name='post_comments',
+                             on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
 
     def __str__(self):

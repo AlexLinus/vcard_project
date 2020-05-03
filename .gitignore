@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# dotenv
+.env
+
+/.idea
+*.sqlite3
+
+
+vcard_project/settings_local.py
+static
+media

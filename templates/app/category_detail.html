@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block seo_title %}{% endblock %}
-{% block seo_description %} {% endblock %}
-{% block seo_keywords %}{% endblock %}
+{% block seo_title %}{% if category.seo_title %}{{ category.seo_title }}{% else %}{{ category.category_title }}{% endif %}{% endblock %}
+{% block seo_description %}{% if category.seo_description %}{{ category.seo_description }}{% endif %}{% endblock %}
+{% block seo_keywords %}{{ category.category_title }}{% endblock %}
 
 {% block content %}
     <!-- Blog Page
@@ -10,17 +10,15 @@
         <div class="row">
             <section class="blog col-md-12 bottom_30">
                 <div class="col-md-12 content-header">
-                    <div class="section-title top_30 bottom_15"><span></span><h2>Статьи блога</h2></div>
+                    <div class="section-title top_30 bottom_15"><span></span><h2>Статьи категории: {{ category.category_title }}</h2></div>
                 </div>
                 <div id="grid-blog" class="row">
                     <!-- a blog -->
-                    {% for post in posts %}
+                    {% for post in category.category_posts.all %}
                     <div class="cbp-item">
                         <a href="{{ post.get_absolute_url }}" class="blog-box">
                             <div class="blog-img">
-                                {% if post.preview_image %}
-                                    <img src="{{ post.preview_image.url }}" alt="">
-                                {% endif %}
+                                <img src="images/blogs/blog-6.jpg" alt="">
                             </div>
                             <div class="blog-box-info">
                                 <span class="category">{{ post.post_category.category_title }}</span>

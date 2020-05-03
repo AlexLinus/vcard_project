@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block seo_title %}{% endblock %}
-{% block seo_description %} {% endblock %}
-{% block seo_keywords %}{% endblock %}
+{% block seo_title %}{% if post.seo_title %}{{ post.seo_title }}{% endif %}{% endblock %}
+{% block seo_description %}{% if post.seo_title %}{{ post.seo_description }}{% endif %}{% endblock %}
+{% block seo_keywords %}{% if post.seo_keywords %}{{ post.seo_keywords }}{% endif %}{% endblock %}
 
 {% block content %}
     <!-- Blog Page
@@ -26,12 +26,6 @@
                         {{ post.seo_keywords }}
                     {% endif %}
 
-                    <!--- <a href="blog-1.html#">web,</a>
-                    <a href="blog-1.html#">interface,</a>
-                    <a href="blog-1.html#">design,</a>
-                    <a href="blog-1.html#">photoshop,</a>
-                    <a href="blog-1.html#">creative,</a>
-                    <a href="blog-1.html#">portfolio</a> -->
                 </div>
             </div> <!-- post end -->
             <!--Sidebar-->
@@ -46,6 +40,7 @@
                     </ul>
                 </div>
                 <!-- Popular Post -->
+            {% if related_posts %}
                 <div class="post-list">
                     <div class="section-title bottom_15 top_60"><span></span><h3>Похожие статьи</h3></div>
                     <ul>
@@ -60,14 +55,16 @@
                         {% endfor %}
                     </ul>
                 </div>
+            {% endif %}
             </div>
         <div class="col-md-12">
-                            <!-- Post Comments -->
+                <!-- Post Comments -->
+            {% if post.post_comments.all %}
                 <div class="post-comment">
                     <div class="section-title bottom_30 top_60"><span></span><h2>Комментарии</h2></div>
                     <ul id="comments-list">
                         <!-- a comment -->
-                        {% for comment in post.post_comments.all reversed%}
+                        {% for comment in post.post_comments.all reversed %}
                             <li>
                             <div class="row">
                                 <div class="col-md-10 col-sm-10 col-xs-9 comment-content">
@@ -84,6 +81,7 @@
 
                     </ul>
                 </div>
+            {% endif %}
                 <div class="leave-comment">
                     <div class="section-title bottom_30 top_60"><span></span><h2>Оставить комментарий</h2></div>
                     <form action="{% url 'add_comment_url' post.slug %}" method="POST" class="site-form" id="comment-form">
