@@ -1,14 +1,16 @@
+import collections
+
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.db import models
 from autoslug import AutoSlugField
 
 # Create your models here.
+from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.html import strip_tags
-import collections
-
 from django.utils.safestring import mark_safe
+
+
 
 from seo.mixins import SeoAbstractModel
 
@@ -32,7 +34,7 @@ class Posts(SeoAbstractModel):
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
 
     def __str__(self):
-        return self.post_title
+        return str(self.post_title)
 
     @property
     def generate_keywords(self):
@@ -81,7 +83,7 @@ class Category(SeoAbstractModel):
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
 
     def __str__(self):
-        return self.category_title
+        return str(self.category_title)
 
     def get_absolute_url(self):
         return reverse('category_detail_url', kwargs={'category_slug': self.slug})

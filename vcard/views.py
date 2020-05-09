@@ -1,42 +1,53 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Gallery, Skills
-from .forms import ContactForm
+import json
 
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import HttpResponse
+from django.views import generic
 
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from django.http import HttpResponse
-import json
+
+from .models import Gallery, Skills
+from .forms import ContactForm
 # Create your views here.
 
 
-def home_view(request):
+class HomePageView(generic.TemplateView):
+    """ View for getting Home page """
+    template_name = 'app/home.html'
 
-    context = {
-        'skills': Skills.objects.filter(is_active=True)
-    }
-
-    return render(request, 'app/home.html', context)
-
-
-def portfolio_detail(request):
-    portfolio_items = Gallery.objects.filter(is_active=True)
-    return render(request, 'app/portfolio.html', context={'portfolio_items': portfolio_items})
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['skills'] = Skills.objects.filter(is_active=True)
+        return context
 
 
-def project_detail(request, project_slug):
-    project = get_object_or_404(Gallery, slug=project_slug)
-    return render(request, 'app/project_detail.html', context={'project': project})
+class PortfolioView(generic.ListView):
+    """ View for getting Portfolio items (projects) """
+    queryset = Gallery.objects.filter(is_active=True)
+    template_name = 'app/portfolio.html'
+    context_object_name = 'portfolio_items'
 
 
-def contact_detail(request):
-    form = ContactForm()
-    return render(request, 'app/contact_detail.html', context={'form': form})
+class ProjectDetailView(generic.DetailView):
+    """ View for getting Project detail """
+    model = Gallery
+    template_name = 'app/project_detail.html'
+
+
+class ContactPageView(generic.TemplateView):
+    """ View for getting Contact Page """
+    template_name = 'app/contact_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactPageView, self).get_context_data(**kwargs)
+        context['form'] = ContactForm()
+        return context
 
 
 def send_message(request):
+    """ function for ajax view of sending email to site admin """
     full_form = ContactForm(request.POST)
     if request.is_ajax():
         if full_form.is_valid():
@@ -46,7 +57,7 @@ def send_message(request):
             recipient_list = ['kelevra141993@gmail.com',]
             try:
                 send_mail(subject, message, email_from, recipient_list)
-            except Exception as e:
+            except Exception:
                 pass
             to_json_response = dict()
             to_json_response['status'] = 1
@@ -61,4 +72,3 @@ def send_message(request):
             to_json_response['new_cptch_key'] = CaptchaStore.generate_key()
             to_json_response['new_cptch_image'] = captcha_image_url(to_json_response['new_cptch_key'])
         return HttpResponse(json.dumps(to_json_response), content_type='application/json')
-
