@@ -1,14 +1,14 @@
-from django.db import models
 from autoslug import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.urls import reverse
 
+from django.db import models
 from django.db.models.signals import pre_save
+from django.urls import reverse
 from django.utils.html import strip_tags
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-# Create your models here.
 from seo.mixins import SeoAbstractModel
+# Create your models here.
 
 
 class Gallery(SeoAbstractModel):
@@ -30,7 +30,7 @@ class Gallery(SeoAbstractModel):
         return reverse('post_detail_url', kwargs={'project_url': self.slug})
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         verbose_name = 'Галерея'
@@ -92,4 +92,4 @@ class Skills(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
 
     def __str__(self):
-        return self.title
+        return str(self.title)
