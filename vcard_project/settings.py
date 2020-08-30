@@ -147,6 +147,7 @@ CKEDITOR_CONFIGS = {
             ['Image', 'Table', ],
             ['RemoveFormat', 'SpecialChar'],
             ['CodeSnippet', 'Source',],
+            ['Styles', 'Format', 'Font', 'FontSize',],
         ],
         # в ckeditor идет пачка встроенных плагинов, которые нужно включить.
         'extraPlugins': 'codesnippet',
