@@ -49,9 +49,9 @@ class CategoryDetailView(generic.DetailView):
     context_object_name = 'category'
 
 
-def add_comment(request, post_slug):
+def add_comment(request, slug):
     """ function view for adding comment via ajax """
-    post = get_object_or_404(Posts, slug=post_slug)
+    post = get_object_or_404(Posts, slug=slug)
     full_form = CommentForm(request.POST)
     if request.is_ajax():
         if full_form.is_valid():

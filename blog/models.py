@@ -50,7 +50,7 @@ class Posts(SeoAbstractModel):
 
     @property
     def get_absolute_url(self):
-        return reverse('post_detail_url', kwargs={'post_slug': self.slug})
+        return reverse('post_detail_url', kwargs={'slug': self.slug})
 
 
 def post_seo_title_description_keys_generator(sender, instance, *args, **kwargs):
@@ -86,7 +86,7 @@ class Category(SeoAbstractModel):
         return str(self.category_title)
 
     def get_absolute_url(self):
-        return reverse('category_detail_url', kwargs={'category_slug': self.slug})
+        return reverse('category_detail_url', kwargs={'slug': self.slug})
 
 
 def category_seo_title_description_generator(sender, instance, *args, **kwargs):
