@@ -1,0 +1,18 @@
+{% for robot in robots %}
+
+User-agent: {{ robot.robot }}<br/>
+{% for disallowed_pattern in robot.disallowed_urls.all %}
+Disallow: {{ disallowed_pattern.url_pattern }}
+<br/>
+{% endfor %}
+{% for allowed_pattern in robot.allowed_urls.all %}
+Allow: {{ allowed_pattern.url_pattern }}
+<br/>
+{% endfor %}
+<br/>
+{% endfor %}
+
+{% if host %}
+Sitemap: {{ request.scheme }}://{{ host.url }}/sitemap.xml<br/>
+Host: {{ host.url }}
+{% endif %}

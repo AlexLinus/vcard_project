@@ -1,5 +1,5 @@
 /*!
- * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Bootstrap v3.3.5 (https://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
@@ -263,8 +263,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.eot?') format('embedded-opentype'), url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.svg') format('svg');
+  src: url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.eot?') format('embedded-opentype'), url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('https://tavonline.net/html/mat/default/fonts/glyphicons-halflings-regular.svg') format('svg');
 }
 .glyphicon {
   position: relative;
