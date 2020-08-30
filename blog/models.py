@@ -48,7 +48,6 @@ class Posts(SeoAbstractModel):
                     seo_words.append(''.join(l for l in word[0] if l.isalpha() or l.isdigit()))
             return ','.join(seo_words)
 
-    @property
     def get_absolute_url(self):
         return reverse('post_detail_url', kwargs={'slug': self.slug})
 

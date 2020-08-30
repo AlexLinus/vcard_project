@@ -14,18 +14,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from seo.sitemaps import (
+    PostsSitemap, CategorySitemap, StaticViewSitemap
+)
 from seo.views import RobotsTxtView
 
+
+sitemaps = {
+    'static_pages': StaticViewSitemap,
+    'category': CategorySitemap,
+    'posts': PostsSitemap,
+
+}
+
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap_url'),
+    path('robots.txt', RobotsTxtView.as_view(), name='robots_txt_url'),
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('', include('vcard.urls')),
     path('blog/', include('blog.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('captcha/', include('captcha.urls')),
-    path('robots.txt', RobotsTxtView.as_view(), name='robots_txt_url')
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vcard.apps.VcardConfig',
+    'django.contrib.sitemaps',
+
     'ckeditor',
     'seo',
     'blog',
