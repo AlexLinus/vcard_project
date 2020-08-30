@@ -28,6 +28,7 @@ class GalleryAdmin(admin.ModelAdmin):
         ('SEO', {'fields': ('seo_title', 'seo_description', 'seo_keywords',)}),
     )
 
+
 @admin.register(Skills)
 class SkillsAdmin(admin.ModelAdmin):
     """ Admin for Gallery objects (Portfolio) """
@@ -44,6 +45,7 @@ class SiteConfigurationAdmin(admin.ModelAdmin):
         ('Настройки', {'fields': ('site_name', 'favicon')}),
         ('Обо мне', {'fields': ('name', 'nickname', 'specialization', 'avatar', 'about', 'city')}),
         ('Контакты', {'fields': ('my_cv', 'email', 'linkedin', 'skype')}),
+        ('Скрипты', {'fields': ('header_scripts', 'footer_scripts')}),
     )
 
     def has_add_permission(self, request):

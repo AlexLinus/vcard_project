@@ -39,7 +39,7 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-
+{{ SITE_SETTINGS.header_scripts|safe }}
 </head>
 <body>
  <!-- Preloading -->
@@ -69,9 +69,11 @@
             <li><p><span>Email:</span> <a href="mailto:{{ SITE_SETTINGS.email }}">{{ SITE_SETTINGS.email }}</a></p></li>
             {% if SITE_SETTINGS.skype %}<li><p><span>Skype:</span> <a href="skype:{{ SITE_SETTINGS.skype }}?chat">{{ SITE_SETTINGS.skype }}</a></p></li>{% endif %}
         </ul>
-        <div class="col-md-12">
-            <button class="site-btn icon" onclick="{% if SITE_SETTINGS.my_cv %}window.open('{{ SITE_SETTINGS.my_cv.url }}'){% endif %}">Download Cv <i class="fa fa-download" aria-hidden="true"></i></button>
-        </div>
+        {% if SITE_SETTINGS.my_cv %}
+            <div class="col-md-12">
+                <button class="site-btn icon" onclick="window.open('{{ SITE_SETTINGS.my_cv.url }}')">Скачать CV<i class="fa fa-download" aria-hidden="true"></i></button>
+            </div>
+        {% endif %}
     </div>
 </div>
 
@@ -139,5 +141,8 @@
 <script src="{% static 'js/jquery.cookie-1.4.1.min.js' %}"></script>
 <script src="{% static 'js/check_captcha.js' %}"></script>
 
+ <noindex>
+    {{ SITE_SETTINGS.footer_scripts|safe }}
+ </noindex>
 </body>
 </html>
