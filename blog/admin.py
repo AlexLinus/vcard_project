@@ -11,7 +11,7 @@ class PostsAdmin(admin.ModelAdmin):
     list_filter = ('pub_date', 'is_active', 'post_category')
 
     fieldsets = (
-        (None, {'fields': ('post_title', 'post_body', 'post_category', 'preview_image', 'is_active')}),
+        (None, {'fields': ('post_title', 'post_body', 'post_category', 'preview_image', 'is_active', 'slug')}),
         ('SEO', {'fields': ('seo_title', 'seo_description', 'seo_keywords', 'views',)}),
     )
 
