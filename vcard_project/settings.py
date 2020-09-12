@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vcard.apps.VcardConfig',
     'django.contrib.sitemaps',
+    'adminsortable2',
 
     'ckeditor',
     'seo',

@@ -3,6 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib.auth.models import Group
 
+from adminsortable2.admin import SortableAdminMixin
+
 from .models import SiteConfig, Gallery, Skills
 
 
@@ -30,7 +32,7 @@ class GalleryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Skills)
-class SkillsAdmin(admin.ModelAdmin):
+class SkillsAdmin(SortableAdminMixin, admin.ModelAdmin):
     """ Admin for Gallery objects (Portfolio) """
 
     list_display = ('title', 'percent', 'is_active')

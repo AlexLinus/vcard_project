@@ -7,3 +7,10 @@ Functions
  - Blog
  - Comments
  - Generating Meta information
+
+
+Commands:
+
+```bash
+    ./manage.py reorder vcard.Skills
+```

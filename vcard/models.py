@@ -115,12 +115,15 @@ class Skills(models.Model):
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
+        ordering = ['order_index']
 
     title = models.CharField(max_length=120, verbose_name='Заголовок навыка')
     percent = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name='% знания навыка', help_text='От 0 до 100')
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
+    order_index = models.PositiveIntegerField(
+        default=0, blank=False, null=False, verbose_name='Порядок')
 
     def __str__(self):
         return str(self.title)
