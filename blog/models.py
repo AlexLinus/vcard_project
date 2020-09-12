@@ -22,16 +22,47 @@ class Posts(SeoAbstractModel):
         verbose_name_plural = 'Статьи'
         ordering = ['-created_date']
 
-    post_title = models.CharField(max_length=180, blank=False, null=False, verbose_name='Заголовок статьи')
+    post_title = models.CharField(
+        max_length=180,
+        blank=False,
+        null=False,
+        verbose_name='Заголовок статьи'
+    )
     post_body = RichTextUploadingField(verbose_name='Текст статьи')
-    slug = AutoSlugField(populate_from='post_title', unique_with=['id', 'pub_date__day'])
-    post_category = models.ForeignKey('Category', related_name='category_posts', on_delete=models.CASCADE)
-    preview_image = models.ImageField(upload_to='uploads/blog_previews/', default=None, blank=True, null=True,
-                                      verbose_name='Превью статьи')
-    is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
-    pub_date = models.DateTimeField(auto_now=True, verbose_name='Дата публикации')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
+    slug = AutoSlugField(
+        populate_from='post_title',
+        editable=True,
+        blank=True,
+        unique_with=['id', 'pub_date__day']
+    )
+    post_category = models.ForeignKey(
+        'Category',
+        related_name='category_posts',
+        on_delete=models.CASCADE
+    )
+    preview_image = models.ImageField(
+        upload_to='uploads/blog_previews/',
+        default=None,
+        blank=True,
+        null=True,
+        verbose_name='Превью статьи'
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='Опубликовано'
+    )
+    pub_date = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Дата публикации'
+    )
+    created_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата создания'
+    )
+    views = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Просмотры'
+    )
 
     def __str__(self):
         return str(self.post_title)
