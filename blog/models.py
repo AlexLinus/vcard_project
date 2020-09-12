@@ -33,7 +33,8 @@ class Posts(SeoAbstractModel):
         populate_from='post_title',
         editable=True,
         blank=True,
-        unique_with=['id', 'pub_date__day']
+        unique_with=['id', 'pub_date__day'],
+        max_length=400
     )
     post_category = models.ForeignKey(
         'Category',
