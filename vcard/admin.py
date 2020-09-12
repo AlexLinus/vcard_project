@@ -42,7 +42,7 @@ class SkillsAdmin(admin.ModelAdmin):
 class SiteConfigurationAdmin(admin.ModelAdmin):
     """ Admin for SiteConfiguration  (Singleton)"""
     fieldsets = (
-        ('Настройки', {'fields': ('site_name', 'favicon')}),
+        ('Настройки', {'fields': ('site_name', 'favicon', 'is_services_active', 'is_portfolio_active')}),
         ('Обо мне', {'fields': ('name', 'nickname', 'specialization', 'avatar', 'about', 'city')}),
         ('Контакты', {'fields': ('my_cv', 'email', 'linkedin', 'skype')}),
         ('Скрипты', {'fields': ('header_scripts', 'footer_scripts')}),

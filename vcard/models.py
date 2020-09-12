@@ -97,6 +97,14 @@ class SiteConfig(models.Model):
                                       verbose_name='Скрипты в шапке сайта')
     footer_scripts = models.TextField(blank=True,
                                       verbose_name='Скрипты в подвале сайта')
+    is_services_active = models.BooleanField(
+        default=True,
+        verbose_name='Включить блок Мои услуги на главной'
+    )
+    is_portfolio_active = models.BooleanField(
+        default=True,
+        verbose_name='Включить портфолио'
+    )
 
     def __str__(self):
         return "Настройки сайта"

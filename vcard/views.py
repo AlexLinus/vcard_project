@@ -52,13 +52,13 @@ def send_message(request):
     if request.is_ajax():
         if full_form.is_valid():
             subject = f'Письмо с сайта vcard, от { full_form.cleaned_data["your_name"]} { full_form.cleaned_data["your_email"]}'
-            email_from = settings.EMAIL_HOST_USER
+            email_from = settings.DEFAULT_FROM_EMAIL
             message = f'от { full_form.cleaned_data["your_email"]}  \r\n {full_form.cleaned_data["message"]}'
-            recipient_list = ['kelevra141993@gmail.com',]
+            recipient_list = [settings.DEFAULT_EMAIL_TO]
             try:
                 send_mail(subject, message, email_from, recipient_list)
-            except Exception:
-                pass
+            except Exception as E:
+                print(E)
             to_json_response = dict()
             to_json_response['status'] = 1
             to_json_response['new_cptch_key'] = CaptchaStore.generate_key()

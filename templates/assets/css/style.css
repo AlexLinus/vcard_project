@@ -1073,6 +1073,7 @@ ul.timeline{
 
 #blog-post .post .post-content p {
     margin-bottom: 20px;
+    font-size: 18px;
 }
 
 #blog-post .post .post-content pre code {
@@ -1097,8 +1098,6 @@ ul.timeline{
 /* Sidebar */
 
 #blog-post .blog-sidebar{
-    border-left: solid 1px #efefef;
-    padding-left: 30px;
 }
 
 #blog-post .blog-sidebar .category ul{
@@ -1929,6 +1928,7 @@ footer .footer .copyright a:hover{
     font-weight: bold;
 }
 
-
-
+.mg-top-10 {
+    margin-top: 10px;
+}
 

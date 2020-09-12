@@ -92,7 +92,9 @@
                         <li class="tab">
                             <a class="home-btn" href="{% url 'home_url' %}"><i class="fa fa-home" aria-hidden="true"></i></a>
                         </li>
-                        <li class="tab"><a href="{% url 'portfolio_url' %}">ПОРТФОЛИО</a></li>
+                        {% if SITE_SETTINGS.is_portfolio_active %}
+                            <li class="tab"><a href="{% url 'portfolio_url' %}">ПОРТФОЛИО</a></li>
+                        {% endif %}
                         <li class="tab"><a href="{% url 'blog_url' %}">БЛОГ</a></li>
                         <li class="tab"><a href="{% url 'contact_url' %}">КОНТАКТЫ</a></li>
                     </ul>

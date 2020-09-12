@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block seo_title %}{% endblock %}
-{% block seo_description %}{% endblock %}
-{% block seo_keywords %}{% endblock %}
+{% block seo_title %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.contact_seo_title }}{% endif %}{% endblock %}
+{% block seo_description %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.contact_seo_description }}{% endif %}{% endblock %}
+{% block seo_keywords %}{% if GLOBAL_SEO %}{{ GLOBAL_SEO.contact_seo_keywords }}{% endif %}{% endblock %}
 
 {% block content %}
             <!-- Contact Page

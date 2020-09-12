@@ -35,6 +35,14 @@ class GlobalSeo(models.Model):
     portfolio_seo_keywords = models.CharField(
         max_length=220, verbose_name='SEO ключевые слова для блога')
 
+    # CONTACT SEO
+    contact_seo_title = models.CharField(
+        max_length=220, verbose_name='SEO заголовок для блога')
+    contact_seo_description = models.CharField(
+        max_length=220, verbose_name='SEO описание для блога')
+    contact_seo_keywords = models.CharField(
+        max_length=220, verbose_name='SEO ключевые слова для блога')
+
     def __str__(self):
         return 'SEO настройки сайта'
 

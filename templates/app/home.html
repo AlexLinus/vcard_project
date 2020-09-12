@@ -18,6 +18,7 @@
                 </div>
                 {% endif %}
                 <!-- My Services Section -->
+            {% if SITE_SETTINGS.is_services_active %}
                 <div class="row">
                     <section class="services line graybg col-md-12 padding_50 padbot_50">
                     <div class="section-title bottom_45"><span></span><h2>Мои услуги</h2></div>
@@ -66,6 +67,7 @@
                 </section>
                 </div>
                 <!-- Skills Section -->
+            {% endif %}
             {% if skills %}
                 <div class="row">
                     <section class="design-skills col-12 padding_60 padbot_50">

@@ -10,7 +10,41 @@
     <div id="blog-post">
         <div class="row">
             <!--Blog Post-->
-            <div class="col-md-8 post">
+        <div class="col-md-12 mg-top-10">
+            <div class="blog-sidebar">
+                <div class="col-md-6">
+                    <!-- Category List -->
+                    <div class="category">
+                        <div class="section-title"><span></span><h3>Категории</h3></div>
+                        <ul class="category-list">
+                            {% for category in categories %}
+                                <li><a href="{{ category.get_absolute_url }}">{{ category.category_title }}</a><span>{{category.category_posts.count}}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 mg-top-10">
+                    <!-- Popular Post -->
+                    {% if related_posts %}
+                        <div class="category">
+                            <div class="section-title"><span></span><h3>Похожие статьи</h3></div>
+                            <ul class="category-list">
+                                <!-- a post -->
+                                {% for related_post in related_posts %}
+                                <li>
+                                    <a href="{{ related_post.get_absolute_url }}">
+                                        {{related_post.post_title}}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+            <div class="col-md-12 post">
                 {% if post.preview_image %}
                     <div class="blog-image">
                         <img src="{{ post.preview_image.url }} " alt="">
@@ -29,34 +63,6 @@
                 </div>
             </div> <!-- post end -->
             <!--Sidebar-->
-            <div class="col-md-4 blog-sidebar">
-                <!-- Category List -->
-                <div class="category">
-                    <div class="section-title bottom_15 top_15"><span></span><h3>Категории</h3></div>
-                    <ul class="category-list">
-                        {% for category in categories %}
-                            <li><a href="{{ category.get_absolute_url }}">{{ category.category_title }}</a><span>{{category.category_posts.count}}</span></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!-- Popular Post -->
-            {% if related_posts %}
-                <div class="post-list">
-                    <div class="section-title bottom_15 top_60"><span></span><h3>Похожие статьи</h3></div>
-                    <ul>
-                        <!-- a post -->
-                        {% for related_post in related_posts %}
-                        <li>
-                            <a href="{{ related_post.get_absolute_url }}">
-                                <div class="info">{{ related_post.post_category.category_title }} <span>{{ related_post.pub_date|date:"d M Y" }}</span></div>
-                                <p class="little-text">{{related_post.post_title}}</p>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            </div>
         <div class="col-md-12">
                 <!-- Post Comments -->
             {% if post.post_comments.all %}
